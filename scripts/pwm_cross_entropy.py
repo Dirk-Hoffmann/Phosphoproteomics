@@ -45,7 +45,14 @@ def cross_entropy_calculation(pwm_1, pwm_2):
     pwm_1 = average_kinase(pwm_1)+1e-3
     pwm_2 = average_kinase(pwm_2)+1e-3
 
-    return np.sum(pwm_2 * np.log(pwm_2/pwm_1))
+    #calculate cross entropy loss
+    loss = np.sum(pwm_1 * np.log(pwm_1/pwm_2))
+
+    #normalize by length of pwm
+    loss = loss/len(pwm_1)
+
+    #apply sigmoid function to make sure the output is between 0 and 1
+    return 1/1*np.exp(-loss)
 
 def get_subcellular_specificity(UniProt_AccID):
     url = "https://www.uniprot.org/uniprotkb/"+UniProt_AccID+".json"
