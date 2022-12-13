@@ -67,10 +67,14 @@ scripts//
 steps//
  contains intermediate results (like pwms or predictions)
  
-Packages: versions
+Packages: versions//
 
 Python: 3.9.12 (main, Apr 5 2022, 01:53:17)
+
 requests: 2.27.1
+
 numpy: 1.21.5
+
 pandas: 1.4.2
+
 pylcs: 0.0.7
