@@ -28,15 +28,19 @@ First off - the structure of this repository is supposed to be more or less intu
         Sugiyama phosphosites, that have had their nomenclature updated so they fit the phosphosite+ Kinase-substrate dataset
 
 //plots
+
     A folder made for storing and generating plots from data. This folder has some messy code and some plots and is in general more there to segment those away from the rest of the code. I might eventually clean it up, but in the end that's not really the purpose of this folder.
 
 //results
+
      contains final results/plots
 
-scripts//
+//scripts
+
     contains code in general
 
-steps//
+//steps
+
     contains intermediate results (like pwms or predictions)
 
 
