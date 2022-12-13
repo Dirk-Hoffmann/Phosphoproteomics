@@ -2,17 +2,28 @@
  Git repository of my project with phosphoproteomics data for Zavolan Lab anno 2022
 
 First off - the structure of this repository is supposed to be more or less intuitive but I'll explain it here regardless.
-//data 
+//data
+
     This folder stores raw data. 
+    
     //CFIm_KD_Phospho_peptides.csv 
+    
         Phosphosites from the Zavolan Lab Sarcopenia project.
+        
     //CFImKDFastaDB.pickle
+    
         Pickle of a dictionary with {Accession ID : FASTA} for each phosphopeptide in the phosphosites.
+        
     //kin_sub_ds.txt.pickle
+    
         The Kinase - Substrate Dataset from Phosphosite+ (from November 2022)
+        
     //Sugiyama_phosphosites.csv 
+    
         Unfiltered in vitro kinase-substrate data from Sugiyama et. al. 
-    //Sugiyama_phosphosites_updated.txt
+        
+    //Sugiyama_phosphosites_updated.tx
+    
         Sugiyama phosphosites, that have had their nomenclature updated so they fit the phosphosite+ Kinase-substrate dataset
 
 //plots
