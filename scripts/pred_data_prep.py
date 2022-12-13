@@ -5,6 +5,9 @@ import os
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
 
+### As the name of this script implies - it prepared prediction data for evaluation, reducing overhead.
+### Takes output of kinase_prediction.py and prepares it for use with evaluate_predictions.py
+
 
 def parsePredictions(prediction_filename):
     with open(prediction_filename) as f:

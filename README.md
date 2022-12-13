@@ -19,7 +19,13 @@ First off - the structure of this repository is supposed to be more or less intu
     A folder made for storing and generating plots from data. This folder has some messy code and some plots and is in general more there to segment those away from the rest of the code. I might eventually clean it up, but in the end that's not really the purpose of this folder.
 
 //results
-    
+     contains final results/plots
+
+scripts//
+    contains code in general
+
+steps//
+    contains intermediate results (like pwms or predictions)
 
 
 
@@ -45,3 +51,10 @@ scripts//
 steps//
  contains intermediate results (like pwms or predictions)
  
+Packages: versions
+
+Python: 3.9.12 (main, Apr 5 2022, 01:53:17)
+requests: 2.27.1
+numpy: 1.21.5
+pandas: 1.4.2
+pylcs: 0.0.7

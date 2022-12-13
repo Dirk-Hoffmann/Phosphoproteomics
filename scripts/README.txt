@@ -8,11 +8,7 @@ constructFastaDB.py - constructs a dictionary of ACC_ID:FASTA, to reduce overhea
 
 evaluate_predictions.py - tests predictions of pwms vs ground truth (eg. phosphosite plus kinase-substrate dataset)
 
-fetch_from_uniprot.py - (probably outdated) made to load sequence data from uniprot and fill in blanks in sequences.
-
 kinase_prediction.py - tries to predict what kinase from a dict of kinase:pwm pairs is most likely to phosphorylate a certain phosphosite. 
-
-kinaseDict.py - (probably outdated) wants to create a dict of ACC_ID:Kinase Name
 
 pred_data_prep.py - turns output of kinase_prediction.py into pickles which makes evaluate_predictions.py run faster
 

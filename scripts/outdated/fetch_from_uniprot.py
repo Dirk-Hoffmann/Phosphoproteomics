@@ -1,15 +1,10 @@
-from ast import Break
-from io import StringIO
-from urllib import response
 import requests as r
-from Bio import SeqIO
 import os
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
 
 
-###This program is built to load sequence data from uniprot and try and fill in blanks in sequences, but it turned out that usually the blanks are just there because of sequence ends. womp womp
-### bad luck
+###This program is built to load sequence data from uniprot and try and fill in blanks in sequences, but it turned out that usually the blanks are just there because of sequence ends.
 
 def id_to_url(id):
     currentUrl = "https://www.uniprot.org/uniprot/"+id+".fasta"

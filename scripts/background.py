@@ -3,50 +3,38 @@ import os
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
 
+### This script calculates the background rates of each amino acid across a set of phosphosites.
+### The phosphosites have to be extended by 7 amino acids upstream and downstream, as this is the 
+### peptide fragment which is used for the sliding window likelihood calculation which we calculate the background for.
 
 def id_to_url(id):
     currentUrl = "https://www.uniprot.org/uniprot/"+id+".fasta"
     return currentUrl
     
-
 with open(r"Phosphoproteomics/data/CFIm_KD_Phospho_Peptides.csv") as f:
     lines = [line for line in f]
 f.close()
 
-#print(lines[0])
-
 def calculate_background(phosphopeptides):
     aas="ARNDCQEGHILKMFPSTWYV"
-    bound = 6 ### Use to define the length in either direction that we need to look in uniprot
+    bound = 7 ### Use to define the length in either direction that we need to look in uniprot
     bg_list = [0 for i in aas]
 
-    for line in phosphopeptides:
-        line = line.split(';')
-        response = r.post(id_to_url(line[2].replace("\n","")))
+    for phosphosite in phosphopeptides:
+        phosphosite = phosphosite.split(';')
+        phosphosite_sequence = phosphosite[0]
+        response = r.post(id_to_url(phosphosite[2].replace("\n","")))
         data=''.join(response.text).replace("\n","")
-        id = 0
         for count,n in enumerate(data):
-            seq = False
-            f = len(line[0])
-            # print(count, f)
-            # print(data[count:count+f])
-            if data[count:count+len(line[0])] == line[0]:
-                seq = data[count-bound:count+len(line[0])+bound]
-                print("got'em", seq, line[0])
+            if data[count:count+len(phosphosite_sequence)] == phosphosite_sequence:
+                phosphosite_with_bounds = data[count-bound:count+len(phosphosite_sequence)+bound]
                 break
-        if seq:
-            for n in seq:
+        if phosphosite_with_bounds:
+            for aa in phosphosite_with_bounds:
                 for count, i in enumerate(aas):
-                    if n == i:
+                    if aa == i:
                         bg_list[count]+= 1
-        print(bg_list)
     return bg_list
-
-        #print(line)
-    #print(bg_list)
-    #print(phosphopeptides[1])
-
-
 
 #calculate_background(lines) ## output below:
 
@@ -56,5 +44,3 @@ bg_rates = []
 
 for n in background_list:
     bg_rates.append(n/sum(background_list))
-
-#print(bg_rates, sum(bg_rates))

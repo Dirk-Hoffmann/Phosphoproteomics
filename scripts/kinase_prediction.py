@@ -8,17 +8,21 @@ import os
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
 
+### This script calculates the probability of a phosphorylated peptide being explained by a kinase based on the 2022 paper by Ghosh, Souvik et. al. https://pubmed.ncbi.nlm.nih.gov/35234914/
+### Specifically from the methods section "Inference of kinase activity from phosphoproteome data"
 
 
 pwms_filename = "pps+_pwms"
 
 
 def import_FastaDB(path:str):
+    ### Imports a dictionary of ACCID:FASTA as created by ConstructFastaDB.py
     with open(path, "rb") as f:
         fastaDB = pickle.load(f)
     f.close()
     return fastaDB
 
+### df is the phosphosites from the 2022 paper by Ghosh, Souvik et. al.
 df = pd.read_csv(r"Phosphoproteomics/data/CFIm_KD_Phospho_Peptides.csv", sep=";")
 
 def idToUrl(id):
@@ -29,7 +33,7 @@ def idToUrl(id):
 phosphosites = df.values.tolist()
 
 def indexConverter(sequence1, sequence2, index1):
-    #converts index of phosphosite to index in sequence
+    #converts index of phosphosite to index in Fasta sequence
     for i in range(len(sequence2)):
         x = 0
         for n in range(len(sequence1)):
@@ -45,6 +49,7 @@ f.close()
 
 
 def centre(phosphosite):
+    ### Finds the centre amino acid of a phosphosite.
     idx = []
     for i in range(len(phosphosite[1])):
         if phosphosite[1][i] == "[":
@@ -105,6 +110,7 @@ def likelihoodOfKinase(background, pwm, peptideSequence):
     return likelihood
 
 def slicer(phosphosite:str, proteinSeq:str, relativeIndexes:list):
+    ### slice returns the peptide + the number of aa's on either side specified by relativeIndexes to enable "full prediction" of the site.
     if indexConverter(phosphosite,proteinSeq, 0)+relativeIndexes[0] < 0:
         left = 0
     else:

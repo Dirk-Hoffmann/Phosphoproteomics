@@ -1,5 +1,4 @@
 import ast
-import enum
 import pandas as pd
 import pickle
 import pylcs
@@ -7,6 +6,9 @@ import re
 import os
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
+
+### As the filename implies this script wants to evaluate our predictions. This is done by comparing them to a ground truth.
+### In this case the ground truth is the phosphosite+ kinase-substrate database. (kin_sub_ds.txt)
 
 
 prediction_filename = "predictions_selbach"
@@ -25,6 +27,7 @@ for count, n in enumerate(protList):
     protAccDict[n] = acclist[count]
 
 def parsePredictions(prediction_filename):
+    ### This function takes a set of predictions and turns them into a dictionary (phosphosite:predicted kinases)
     with open(prediction_filename) as f:
         lines = f.readlines()
     f.close()
@@ -35,9 +38,10 @@ def parsePredictions(prediction_filename):
     return lines
 
 def isomer(known_kinase,predicted):
-    #Used to determine whether or not a miss is an isomer or not. 
+    # Some of the kinases are very similar (eg. CDK1 vs CDK3), this function tries to identify if we're dealing with isomers.
+    # This is done by comparing the longest common subsequence between the known kinase and the predicted
+    # and seeing if it's longer than or equal to the length of the known kinase without numbers.
     if pylcs.lcs2(known_kinase,predicted) >= len(re.sub(r'[0-9]+', '', known_kinase)):
-        #print(re.sub(r'[0-9]+', '', known_kinase))
         return True
     return False
 
@@ -49,7 +53,7 @@ def parseKinaseSubstrateDS(filename):
 
 
 def makeKinaseList(dataset, phosphosite):
-    
+    ### Makes a list of kinases targeting a specific phosphosite
     ### dataset is a pandas dataframe containing kinase-substrate pairings from phosphosite+
     kinaseNameList = [] #### LIST OF KNOWN KINASES TARGETING THIS SUBSTRATE
     for kinase in dataset[dataset['SITE_+/-7_AA'].str.match(phosphosite,na=False)]['KINASE']:
@@ -59,6 +63,7 @@ def makeKinaseList(dataset, phosphosite):
     return kinaseNameList    
 
 def makePredictionSet(predictions, length):
+    ### Makes a set of predictions with the same length as the list of kinases targeting a specific site.
     topPredictions = sorted(predictions)[::-1]
     predictionSet = set()
     for prediction in topPredictions:
@@ -68,6 +73,10 @@ def makePredictionSet(predictions, length):
     return(predictionSet)
     
 def evaluation(predictions, dataset):
+
+    ### Right now the evaluation function produces a result file that notes the phosphosite, the amount of hits and the amount of misses.
+    ### It also counts and shows predicted isomers, these are written down as the isomer function isn't perfect and some human filtering is
+    ### usually needed.
 
     with open('{}.pickle'.format(predictions), 'rb') as f:
         preds = pickle.load(f)

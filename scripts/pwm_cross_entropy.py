@@ -8,6 +8,13 @@ import pandas as pd
 
 os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here.
 
+### Calculates the cross-entropy between two pwms. And also on a larger scale between two dictionaries, eg. sets of pwms. 
+### the cross entropy is normalized by the length of the pwms, in an attempt to make it slightly more legible
+### There are a few things going on here - A lot of stuff is done to make sure we find all possible common PWMs between two sets of pwms. 
+### In a lot of cases some heavy filtering will be needed to make sure that some "annoying" pwms with names that are close to some of the other ones aren't counted
+### as the wrong pwm. Additionally, this script also finds subcellular specificities of the kinases, this is mainly due to my project working with 
+
+
 # protToAcc = pd.read_csv(r"Phosphoproteomics/data/prot_to_acc.csv", sep=";", na_filter=False)
 # protList = protToAcc["Prot"].tolist()
 # acclist = protToAcc["Acc"].tolist()
@@ -51,7 +58,9 @@ def cross_entropy_calculation(pwm_1, pwm_2):
     #normalize by length of pwm
     loss = loss/len(pwm_1)
 
-    #apply sigmoid function to make sure the output is between 0 and 1
+    return loss
+    #### OPTIONAL ####
+    #apply sigmoid function to make sure the output is between 0 and 1, I don't necessarily think this is a good idea.
     return 1/1*np.exp(-loss)
 
 def get_subcellular_specificity(UniProt_AccID):
