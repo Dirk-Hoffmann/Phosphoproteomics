@@ -67,7 +67,7 @@ scripts//
 steps//
  contains intermediate results (like pwms or predictions)
  
-Packages: versions//
+//Packages: versions
 
 Python: 3.9.12 (main, Apr 5 2022, 01:53:17)
 
