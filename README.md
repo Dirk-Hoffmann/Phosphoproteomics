@@ -2,6 +2,7 @@
  Git repository of my project with phosphoproteomics data for Zavolan Lab anno 2022
 
 First off - the structure of this repository is supposed to be more or less intuitive but I'll explain it here regardless.
+
 //data
 
     This folder stores raw data. 
