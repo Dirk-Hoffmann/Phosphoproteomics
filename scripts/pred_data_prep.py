@@ -47,4 +47,4 @@ def dataPrep(predictions, dataset):
 
 
 
-dataPrep(r"Phosphoproteomics/steps/predictions/predictions_sugiyama_filtered.txt", r"Phosphoproteomics/data/kin_sub_ds.txt")
+dataPrep(r"Phosphoproteomics/steps/predictions/ppsplus_pwms_predictions.txt", r"Phosphoproteomics/data/kin_sub_ds.txt")

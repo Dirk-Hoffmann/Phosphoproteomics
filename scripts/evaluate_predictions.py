@@ -11,7 +11,7 @@ os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here
 ### In this case the ground truth is the phosphosite+ kinase-substrate database. (kin_sub_ds.txt)
 
 
-prediction_filename = "predictions_selbach"
+prediction_filename = "ppsplus_pwms_predictions"
 path_to_predictions = fr"Phosphoproteomics/steps/predictions/{prediction_filename}.txt"
 
 
@@ -19,12 +19,12 @@ with open(path_to_predictions) as f:
     lines = f.readlines()
 f.close()
 
-protToAcc = pd.read_csv(r"Phosphoproteomics/data/prot_to_acc.csv", sep=";", na_filter=False)
-protList = protToAcc["Prot"].tolist()
-acclist = protToAcc["Acc"].tolist()
-protAccDict = {}
-for count, n in enumerate(protList):
-    protAccDict[n] = acclist[count]
+# protToAcc = pd.read_csv(r"Phosphoproteomics/data/prot_to_acc.csv", sep=";", na_filter=False)
+# protList = protToAcc["Prot"].tolist()
+# acclist = protToAcc["Acc"].tolist()
+# protAccDict = {}
+# for count, n in enumerate(protList):
+#     protAccDict[n] = acclist[count]
 
 def parsePredictions(prediction_filename):
     ### This function takes a set of predictions and turns them into a dictionary (phosphosite:predicted kinases)
@@ -78,9 +78,10 @@ def evaluation(predictions, dataset):
     ### It also counts and shows predicted isomers, these are written down as the isomer function isn't perfect and some human filtering is
     ### usually needed.
 
-    with open('{}.pickle'.format(predictions), 'rb') as f:
-        preds = pickle.load(f)
-    f.close()
+    # with open('{}.pickle'.format(predictions), 'rb') as f:
+    #     preds = pickle.load(f)
+    # f.close()
+    preds = parsePredictions(predictions)
     data = parseKinaseSubstrateDS(dataset)
     data['SITE_+/-7_AA']=data['SITE_+/-7_AA'].str.upper()
     data['SITE_+/-7_AA']=data['SITE_+/-7_AA'].str.strip("_")

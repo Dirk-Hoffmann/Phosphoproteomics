@@ -78,3 +78,11 @@ steps//
     pandas: 1.4.2
 
     pylcs: 0.0.7
+
+    matplotlib: 3.5.1
+
+    seaborn: 0.11.2
+
+    scipy: 1.7.3
+
+    nextflow: 22.10.1

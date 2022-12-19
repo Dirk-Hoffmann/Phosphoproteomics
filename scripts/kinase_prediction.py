@@ -12,7 +12,7 @@ os.chdir(r"/Users/dirk/Documents/UniBas/Zavolab") #insert your own pathname here
 ### Specifically from the methods section "Inference of kinase activity from phosphoproteome data"
 
 
-pwms_filename = "pps+_pwms"
+pwms_filename = "ppsplus_pwms"
 
 
 def import_FastaDB(path:str):
